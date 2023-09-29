@@ -5,7 +5,8 @@ import { VariableSelector } from "@scb-mono/scb-ui";
 import { components } from '../../api/schema';
 import { AppContext } from "../../context/AppContext";
 import styled from "styled-components";
-import { TableView } from "../../components/TableView";
+import { DataView } from "../../components/DataView";
+import { ChartView } from "../../components/ChartView";
 
 type RegularVariable = components["schemas"]["RegularVariable"];
 
@@ -18,7 +19,11 @@ const VariableSelectorBox = styled.div`
 
 const PageWrapper = styled.div`
     display: flex;
+    flex-direction: row;
     gap: 20px;
+    @media (max-width: 768px) {
+        flex-direction: column;
+    }
 `
 
 const TablePage = () => {
@@ -27,7 +32,7 @@ const TablePage = () => {
 
     const [metadata, setMetadata] = useState<SuccesResponse>()
 
-    const [ valueCodes, setValueCodes ] = useState<{ [key: string]: string[]; }>({});
+    const [valueCodes, setValueCodes] = useState<{ [key: string]: string[]; }>({});
 
     const setValueCode = (variableCode: string, valueCode: string[]) => {
         setValueCodes({ ...valueCodes, [variableCode]: valueCode });
@@ -71,7 +76,7 @@ const TablePage = () => {
             </VariableSelectorBox>
             <div>
                 <h1>{metadata?.label}</h1>
-                <TableView valueCodes={valueCodes} id={query.id && Array.isArray(query.id) ? query.id[0] : query.id} />
+                <DataView valueCodes={valueCodes} id={query.id && Array.isArray(query.id) ? query.id[0] : query.id} />
             </div>
         </PageWrapper>
     </>
