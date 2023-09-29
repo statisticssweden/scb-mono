@@ -1,32 +1,14 @@
+import { useRouter } from 'next/router';
 
-type MyComponentType = {
-    firstname: string,
-    lastname: string,
-    adress: Adress
-    children: React.ReactNode
-}
+const About = () => {
+    const { push, query } = useRouter();
 
-type Adress = {
-    street: string,
-    postalNo: number
-}
+    const buttonHandler = () =>
+        push({ query: { ...query, newParam: 'someValue' } }, undefined, { shallow: true });
 
-const MyComponent = ({ firstname, lastname, children }: MyComponentType) => {
+    return (
+        <button onClick={buttonHandler}>Klicka här!</button>
+    )
 
 }
-
-
-const About = () => (
-    <>
-        <MyComponent
-            firstname="Jonatan"
-            lastname="Hallenberg"
-            adress={{ street: "Storgatan", postalNo: 2 }}>
-            <p>A</p>
-            <p>B</p>
-            <p>C</p>
-        </MyComponent>
-    </>
-)
-
 export default About;

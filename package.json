@@ -4,7 +4,8 @@
   "license": "MIT",
   "scripts": {
     "start": "npx nx serve pxweb",
-    "storybook": "npx nx run scb-ui:storybook"
+    "storybook": "npx nx run scb-ui:storybook",
+    "generate-types": "npx openapi-typescript https://raw.githubusercontent.com/statisticssweden/PxApiSpecs/master/PxAPI-2.yml -o ./pxweb/src/api/schema.d.ts"
   },
   "private": true,
   "devDependencies": {
@@ -48,13 +49,16 @@
     "jest-environment-jsdom": "^29.4.1",
     "nx": "16.9.1",
     "nx-cloud": "latest",
+    "openapi-typescript": "^6.7.0",
     "prettier": "^2.6.2",
     "ts-jest": "^29.1.0",
     "ts-node": "10.9.1",
     "typescript": "~5.1.3"
   },
   "dependencies": {
+    "framer-motion": "^10.16.4",
     "next": "13.4.1",
+    "openapi-fetch": "^0.7.6",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-is": "18.2.0",

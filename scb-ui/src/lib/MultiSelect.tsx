@@ -1,16 +1,15 @@
 import { useState } from "react"
 
 type MultiSelectType = {
-    values: { label: string, id: number }[],
-    selectedIds: number[],
-    setSelectedIds: (ids: number[]) => void
+    values: { label: string, code: string }[],
+    selectedIds: string[],
+    setSelectedIds: (ids: string[]) => void
 }
 
 export const MultiSelect = ({ values, selectedIds, setSelectedIds }: MultiSelectType) => {
 
-    
 
-    const toggleById = (id: number) => {
+    const toggleById = (id: string) => {
         if (selectedIds.includes(id)) {
             setSelectedIds(selectedIds.filter(selectedId => selectedId !== id));
         } else {
@@ -22,11 +21,11 @@ export const MultiSelect = ({ values, selectedIds, setSelectedIds }: MultiSelect
         if (selectedIds.length === values.length) {
             setSelectedIds([]);
         } else {
-            setSelectedIds(values.map(value => value.id));
+            setSelectedIds(values.map(value => value.code));
         }
     }
 
-    const isChecked = (id: number) => {
+    const isChecked = (id: string) => {
         return selectedIds.includes(id);
     }
 
@@ -36,7 +35,7 @@ export const MultiSelect = ({ values, selectedIds, setSelectedIds }: MultiSelect
             {
                 values.map((value) => (
                     <div>
-                        <input onClick={() => toggleById(value.id)} checked={isChecked(value.id)} id={`c_${value.id}`} type="checkbox"></input><label htmlFor={`c_${value.id}`}>{value.label}</label>
+                        <input onClick={() => toggleById(value.code)} checked={isChecked(value.code)} id={`c_${value.code}`} type="checkbox"></input><label htmlFor={`c_${value.code}`}>{value.label}</label>
                     </div>
                 ))
             }
