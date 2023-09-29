@@ -5,14 +5,6 @@ import { ExpandButton } from './ExpandButton';
 import { MultiSelect } from './MultiSelect';
 import { AnimatePresence, motion } from 'framer-motion';
 
-type VariableSelectorType = {
-    /**
-   * Title of the variable
-   */
-    title: string,
-    required: boolean,
-    values: { label: string, code: string }[]
-}
 
 const Card = styled.div`
     border-radius: 12px;
@@ -30,11 +22,26 @@ const TitleRow = styled.div`
     display: flex;
 `
 
-export const VariableSelector = ({ title, required, values }: VariableSelectorType) => {
+type VariableSelectorType = {
+    /**
+   * Title of the variable
+   */
+    title: string,
+    required: boolean,
+    values: { label: string, code: string }[],
+    code: string,
+    onChange: (variableCode: string, valueCode: string[]) => void;
+}
+
+export const VariableSelector = ({ title, required, values, code, onChange }: VariableSelectorType) => {
 
     const [isExpanded, setIsExpanded] = useState(false);
     const [selectedIds, setSelectedIds] = useState<string[]>([]);
 
+    const updateSelectedIds = (selectedIds: string[]) => {
+        setSelectedIds(selectedIds);
+        onChange(code, selectedIds)
+    }
     return <Card>
         <TitleRow>
             <StyledTitle>{title}</StyledTitle>
@@ -47,7 +54,7 @@ export const VariableSelector = ({ title, required, values }: VariableSelectorTy
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}>
-                <MultiSelect values={values} selectedIds={selectedIds} setSelectedIds={setSelectedIds} /></motion.div>}
+                <MultiSelect values={values} selectedIds={selectedIds} setSelectedIds={updateSelectedIds} /></motion.div>}
         </AnimatePresence>
     </Card>
 }

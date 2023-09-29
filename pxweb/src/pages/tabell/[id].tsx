@@ -10,7 +10,7 @@ import { TableView } from "../../components/TableView";
 type RegularVariable = components["schemas"]["RegularVariable"];
 
 const VariableSelectorBox = styled.div`
-    max-width: 320px;
+    width: 320px;
     display: flex;
     flex-direction: column;
     gap: 8px;
@@ -26,6 +26,14 @@ const TablePage = () => {
     const { setTheme } = useContext(AppContext);
 
     const [metadata, setMetadata] = useState<SuccesResponse>()
+
+    const [ valueCodes, setValueCodes ] = useState<{ [key: string]: string[]; }>({});
+
+    const setValueCode = (variableCode: string, valueCode: string[]) => {
+        setValueCodes({ ...valueCodes, [variableCode]: valueCode });
+    }
+
+    console.log(valueCodes);
 
     useEffect(() => {
 
@@ -49,17 +57,21 @@ const TablePage = () => {
                     return (
                         <VariableSelector
                             key={regularVariable.id}
+                            code={regularVariable.id}
                             title={regularVariable.label}
                             required={!regularVariable.elimination}
                             values={
                                 regularVariable.values.map(value => ({ label: value.label, code: value.code }))
-                            } />
+                            }
+                            onChange={setValueCode}
+                        />
+
                     )
                 })}
             </VariableSelectorBox>
             <div>
                 <h1>{metadata?.label}</h1>
-                <TableView id={query.id && Array.isArray(query.id) ? query.id[0] : query.id} />
+                <TableView valueCodes={valueCodes} id={query.id && Array.isArray(query.id) ? query.id[0] : query.id} />
             </div>
         </PageWrapper>
     </>
