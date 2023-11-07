@@ -7,7 +7,7 @@ type AppContextProviderProps = {
 
 export const AppContextProvider = ({ children }: AppContextProviderProps) => {
 
-    const [ theme, setTheme ] = useState<"dark" |"light">('light')
+    const [ theme, setTheme ] = useState<"dark" |"light">('dark')
 
     return <AppContext.Provider value={{ theme, setTheme }}>
         {children}

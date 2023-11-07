@@ -14,7 +14,8 @@ export default function MyApp({ Component, pageProps }: AppProps) {
         <main className={roboto.className}>
             <AppContextProvider>
                 <Header />
-                <Component {...pageProps} />
+                {/* Component är sidkomponenten */}
+                <Component {...pageProps} /> 
             </AppContextProvider>
         </main>
     )

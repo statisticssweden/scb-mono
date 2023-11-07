@@ -57,6 +57,7 @@ const TablePage = () => {
         <button onClick={() => setTheme('light')}>Light</button> */}
         <PageWrapper>
             <VariableSelectorBox>
+                {/* TODO: Kolla type på variabel istället... */}
                 {metadata?.variables.map(variable => {
                     const regularVariable = variable as unknown as RegularVariable;
                     return (
